@@ -1,0 +1,17 @@
+
+/* Vertical writing */
+html {
+  -epub-writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+}
+
+img {
+  max-width: none;
+  max-height: 100%;
+}
+
+body.txt h1.volume {
+  margin-top: 0;
+  margin-right: 30%;
+}

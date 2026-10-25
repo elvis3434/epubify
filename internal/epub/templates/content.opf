@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="book-id" xml:lang="{{esc .Meta.Language}}">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:identifier id="book-id">{{esc .Meta.Identifier}}</dc:identifier>
+    <dc:title>{{esc .Meta.Title}}</dc:title>
+    <dc:language>{{esc .Meta.Language}}</dc:language>
+{{- range $i, $a := .Meta.Authors}}
+    <dc:creator id="creator-{{inc $i}}">{{esc $a}}</dc:creator>
+    <meta refines="#creator-{{inc $i}}" property="role" scheme="marc:relators">aut</meta>
+{{- end}}
+{{- with .Meta.Publisher}}
+    <dc:publisher>{{esc .}}</dc:publisher>
+{{- end}}
+{{- with .Meta.Description}}
+    <dc:description>{{esc .}}</dc:description>
+{{- end}}
+{{- with .Meta.Date}}
+    <dc:date>{{esc .}}</dc:date>
+{{- end}}
+    <meta property="dcterms:modified">{{.Modified}}</meta>
+{{- with .CoverID}}
+    <meta name="cover" content="{{.}}"/>
+{{- end}}
+{{- if .Vertical}}
+    <meta name="primary-writing-mode" content="vertical-rl"/>
+{{- end}}
+  </metadata>
+  <manifest>
+{{- range .Manifest}}
+    <item id="{{.ID}}" href="{{esc .Href}}" media-type="{{.MediaType}}"{{with .Properties}} properties="{{.}}"{{end}}/>
+{{- end}}
+  </manifest>
+  <spine toc="ncx"{{if .Vertical}} page-progression-direction="rtl"{{end}}>
+{{- range .Spine}}
+    <itemref idref="{{.}}"/>
+{{- end}}
+  </spine>
+</package>

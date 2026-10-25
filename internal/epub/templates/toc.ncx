@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="{{esc .Meta.Language}}">
+<head>
+<meta name="dtb:uid" content="{{esc .Meta.Identifier}}"/>
+<meta name="dtb:depth" content="{{.Depth}}"/>
+<meta name="dtb:totalPageCount" content="0"/>
+<meta name="dtb:maxPageNumber" content="0"/>
+</head>
+<docTitle><text>{{esc .Meta.Title}}</text></docTitle>
+<navMap>
+{{- template "navpoints" .TOC}}
+</navMap>
+</ncx>
+{{define "navpoints"}}{{range .}}
+<navPoint id="navpoint-{{.Order}}" playOrder="{{.Order}}">
+<navLabel><text>{{esc .Title}}</text></navLabel>
+<content src="{{esc .Href}}"/>
+{{- template "navpoints" .Children}}
+</navPoint>
+{{- end}}{{end}}

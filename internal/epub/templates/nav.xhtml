@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="{{esc .Meta.Language}}" lang="{{esc .Meta.Language}}">
+<head>
+<title>{{esc .Labels.Contents}}</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body class="nav">
+<nav epub:type="toc" id="toc">
+<h1>{{esc .Labels.Contents}}</h1>
+{{template "navlist" .TOC}}
+</nav>
+<nav epub:type="landmarks" id="landmarks" hidden="hidden">
+<ol>
+{{- with .CoverFile}}
+<li><a epub:type="cover" href="{{.}}">{{esc $.Labels.Cover}}</a></li>
+{{- end}}
+<li><a epub:type="toc" href="nav.xhtml#toc">{{esc .Labels.Contents}}</a></li>
+<li><a epub:type="bodymatter" href="{{(index .TOC 0).Href}}">{{esc (index .TOC 0).Title}}</a></li>
+</ol>
+</nav>
+</body>
+</html>
+{{define "navlist"}}<ol>
+{{- range .}}
+<li><a href="{{esc .Href}}">{{esc .Title}}</a>{{if .Children}}
+{{template "navlist" .Children}}
+{{end}}</li>
+{{- end}}
+</ol>{{end}}

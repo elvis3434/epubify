@@ -1,0 +1,12 @@
+# Build output
+/epubify
+/epubify.exe
+/dist/
+
+# Generated books
+*.epub
+
+# Editor / OS files
+.DS_Store
+.idea/
+.vscode/
